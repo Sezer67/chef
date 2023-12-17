@@ -7,10 +7,8 @@ import en from './translations/en.json';
 const deviceLanguageCode = Localization.getLocales()[0].languageCode;
 const i18n = new I18n();
 
-console.log("deviceLanguageCode", deviceLanguageCode);
 
 const init = () => {
-    console.log("init");
     i18n.availableLocales = ['tr', 'en'];
     i18n.enableFallback = true;
     if(i18n.availableLocales.includes(deviceLanguageCode)) {
