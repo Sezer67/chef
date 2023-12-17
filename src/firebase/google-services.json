@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "757483130139",
+    "project_id": "chef-47db8",
+    "storage_bucket": "chef-47db8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:757483130139:android:595907ce96fc0470fd17be",
+        "android_client_info": {
+          "package_name": "com.sezerkenar.chef"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpMyEx9rATrhjza0Y15JrJbTEukne_2VM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
