@@ -1,10 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
-import { Button, SafeAreaView, StyleSheet, Text, View } from 'react-native';
-import { language } from './src/languages';
-import { Sizes } from './src/constans';
+import { SafeAreaView} from 'react-native';
 import { ThemeProvider } from './src/contexts/theme.context';
-import useTheme from './src/hooks/useTheme';
 import DenemeComp from './src/components/DenemeComp';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
+
+GoogleSignin.configure({
+  webClientId: '757483130139-0g39jjal70furmuga405gbm2hbggth68.apps.googleusercontent.com'
+})
 
 export default function App() {
   return (
@@ -14,11 +16,3 @@ export default function App() {
     </ThemeProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

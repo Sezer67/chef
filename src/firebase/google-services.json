@@ -12,7 +12,20 @@
           "package_name": "com.sezerkenar.chef"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "757483130139-1b5uioimosjvl6ecgvjf1etn0uisf4fg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sezerkenar.chef",
+            "certificate_hash": "4851ec89bc71dbbe98d093890206e1f0d955862e"
+          }
+        },
+        {
+          "client_id": "757483130139-0g39jjal70furmuga405gbm2hbggth68.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCpMyEx9rATrhjza0Y15JrJbTEukne_2VM"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "757483130139-0g39jjal70furmuga405gbm2hbggth68.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "757483130139-md3nc3npapkgevq4g9ofldnm8d02ocab.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sezerkenar.chef"
+              }
+            }
+          ]
         }
       }
     }

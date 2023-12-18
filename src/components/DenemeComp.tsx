@@ -4,6 +4,7 @@ import useTheme from '../hooks/useTheme'
 import { Sizes } from '../constans';
 import { language } from '../languages';
 import auth from '@react-native-firebase/auth';
+import { GoogleSigninButton, GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin'
 
 const DenemeComp = () => {
   const {themeColors, changeTheme} = useTheme();
@@ -21,7 +22,7 @@ const DenemeComp = () => {
 
   const login = async () => {
     try {
-      const res = await auth().signInWithEmailAndPassword('sezer@gmail.m','1234567')
+      const res = await auth().signInWithEmailAndPassword('sezer@gmail.com','123456')
       console.log("login success : ",res);
     } catch (error: any) {
       switch(error.code) {
@@ -50,6 +51,31 @@ const DenemeComp = () => {
   useEffect(() => {
   },[])
 
+  const loginWithGoogle = async () => {
+    try {
+      // Check if your device supports Google Play
+      await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
+      // Get the users ID token
+      const { idToken } = await GoogleSignin.signIn();
+      console.log("id token : ",idToken);
+      // Create a Google credential with the token
+      const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+      console.log("credential  : ",googleCredential);
+      // Sign-in the user with the credential
+      return auth().signInWithCredential(googleCredential);
+    } catch (error: any) {
+      if(error.code === statusCodes.SIGN_IN_CANCELLED) {
+        // user cancelled the login flow
+      } else if(error.code === statusCodes.IN_PROGRESS) {
+        // operation in progress already
+      } else if(error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE){
+        // play service not avaliable
+      } else {
+        // some error happened
+      }
+    }
+  }
+
   return (
     <View style={[{ flex: 1 ,backgroundColor: themeColors.backgroundColor, }]}>
         <Text style={{ fontSize: Sizes.header }} >Header</Text>
@@ -63,6 +89,16 @@ const DenemeComp = () => {
         <Button title='Firebase Login' onPress={() => {login()}} />
         <Button title='Log Out' onPress={() => {logout()}} />
         <Button title='Get Current User' onPress={() => {getCurentUser()}} />
+        <GoogleSigninButton 
+          onPress={() => {
+            loginWithGoogle().then((val) => {
+              console.log("success :" ,val?.user);
+            }).catch((error) => {
+              console.log("error : ",error);
+            })
+          }}
+        />
+        
     </View>
   )
 }
