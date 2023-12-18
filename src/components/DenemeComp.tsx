@@ -12,8 +12,28 @@ const DenemeComp = () => {
     try {
       const res = await auth().createUserWithEmailAndPassword('sezer@gmail.com','123456');
       console.log("gelen res : ",res);
-    } catch (error) {
-      console.log("erro : ",error);
+    } catch (error: any) {
+      if(error.code === 'auth/email-already-in-use') {
+        console.log("email zaten kullanılıyor");
+      }
+    }
+  }
+
+  const login = async () => {
+    try {
+      const res = await auth().signInWithEmailAndPassword('sezer@gmail.m','1234567')
+      console.log("login success : ",res);
+    } catch (error: any) {
+      switch(error.code) {
+        case 'auth/invalid-email':
+          console.log("geçersiz email");
+          break;
+        case 'auth/invalid-credential':
+          console.log("şifre ve kullanıcı adı yanlış");
+          break;
+        default:
+          console.log("Bir sorun ile karşılaşıldı tekrar deneyiniz");
+      }
     }
   }
 
@@ -40,6 +60,7 @@ const DenemeComp = () => {
         <Text>{language('hello')}</Text>
         <Button title='Renk Değiştir' onPress={() => {changeTheme()}} />
         <Button title='Firebase Create Account' onPress={() => {createAccount()}} />
+        <Button title='Firebase Login' onPress={() => {login()}} />
         <Button title='Log Out' onPress={() => {logout()}} />
         <Button title='Get Current User' onPress={() => {getCurentUser()}} />
     </View>
