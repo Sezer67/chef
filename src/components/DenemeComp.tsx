@@ -1,22 +1,30 @@
-import { Button, StyleSheet, Text, View } from 'react-native'
-import React, { useEffect } from 'react'
+import { Button, StyleSheet, Text, TextInput, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import useTheme from '../hooks/useTheme'
 import { Sizes } from '../constans';
 import { language } from '../languages';
 import auth from '@react-native-firebase/auth';
-import { GoogleSigninButton, GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin'
+import firestore from '@react-native-firebase/firestore';
+import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin'
+import { authService } from '../firebase';
+
 
 const DenemeComp = () => {
   const {themeColors, changeTheme} = useTheme();
+  const [mail, setMail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
 
   const createAccount = async () => {
     try {
-      const res = await auth().createUserWithEmailAndPassword('sezer@gmail.com','123456');
-      console.log("gelen res : ",res);
+      await authService.registerEmailAndPassword({
+        email: 'deneme1@gmail.com',
+        firstName: 'Deneme1',
+        lastName: 'DenemeLast1',
+        password: '123456',
+        username: 'deneme1',
+      })
     } catch (error: any) {
-      if(error.code === 'auth/email-already-in-use') {
-        console.log("email zaten kullanılıyor");
-      }
+      console.log("gelen error",error);
     }
   }
 
@@ -45,6 +53,7 @@ const DenemeComp = () => {
 
   const logout = async () => {
     const out = await auth().signOut();
+    await GoogleSignin.signOut();
     console.log("out : ",out);
   }
 
@@ -62,7 +71,21 @@ const DenemeComp = () => {
       const googleCredential = auth.GoogleAuthProvider.credential(idToken);
       console.log("credential  : ",googleCredential);
       // Sign-in the user with the credential
-      return auth().signInWithCredential(googleCredential);
+      const res = await auth().signInWithCredential(googleCredential);
+      // yeni kullanıcı mı ? 
+      if(res.additionalUserInfo?.isNewUser) {
+        await firestore().collection('users').doc(res.user.uid).set({
+          id: res.user.uid,
+          email: res.user.email,
+          password: password,
+          photoURL: res.user.photoURL,
+          phoneNumber: res.user.phoneNumber,
+          firstName: res.additionalUserInfo.profile?.given_name || null,
+          lastName: res.additionalUserInfo.profile?.family_name || null,
+        });
+      }
+      
+      console.log("res : ",JSON.stringify(res));
     } catch (error: any) {
       if(error.code === statusCodes.SIGN_IN_CANCELLED) {
         // user cancelled the login flow
@@ -84,20 +107,30 @@ const DenemeComp = () => {
         <Text style={{ fontSize: Sizes.caption }} >Caption</Text>
         <Text style={{ fontSize: Sizes.small }} >Small</Text>
         <Text>{language('hello')}</Text>
+        <TextInput 
+          style={{
+            backgroundColor: 'white',
+            marginVertical: 5,
+          }}
+          value={mail}
+          onChangeText={(val) => setMail(val)}
+        />
+        <TextInput 
+          style={{
+            backgroundColor: 'white'
+          }}
+          value={password}
+          onChangeText={(val) => setPassword(val)}
+        />
         <Button title='Renk Değiştir' onPress={() => {changeTheme()}} />
         <Button title='Firebase Create Account' onPress={() => {createAccount()}} />
         <Button title='Firebase Login' onPress={() => {login()}} />
         <Button title='Log Out' onPress={() => {logout()}} />
         <Button title='Get Current User' onPress={() => {getCurentUser()}} />
-        <GoogleSigninButton 
-          onPress={() => {
-            loginWithGoogle().then((val) => {
-              console.log("success :" ,val?.user);
-            }).catch((error) => {
-              console.log("error : ",error);
-            })
-          }}
-        />
+        <Button title='Googlew Sign in' onPress={() => {loginWithGoogle()}} />
+        <Button title='Get User By username' onPress={() => {
+          authService.getUsername();
+        }} />
         
     </View>
   )

@@ -3,6 +3,7 @@ import { SafeAreaView} from 'react-native';
 import { ThemeProvider } from './src/contexts/theme.context';
 import DenemeComp from './src/components/DenemeComp';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import LoginScreen from './src/screens/auth/LoginScreen';
 
 GoogleSignin.configure({
   webClientId: '757483130139-0g39jjal70furmuga405gbm2hbggth68.apps.googleusercontent.com'
@@ -11,8 +12,7 @@ GoogleSignin.configure({
 export default function App() {
   return (
     <ThemeProvider>
-      <StatusBar style="auto" />
-      <SafeAreaView style={{ flex: 1 }}><DenemeComp /></SafeAreaView>
+      <LoginScreen />
     </ThemeProvider>
   );
 }

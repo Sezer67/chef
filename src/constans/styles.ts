@@ -2,14 +2,14 @@ import { StyleSheet } from 'react-native';
 
 const gStyles = StyleSheet.create({
 	smallShadow: {
-		shadowColor: '#000',
+		shadowColor: '#121212',
 		shadowOffset: {
 			width: 0,
-			height: 2,
+			height: 3,
 		},
 		shadowOpacity: 0.25,
 		shadowRadius: 3.84,
-		elevation: 2,
+		elevation: 6,
 	},
 	mediumShadow: {
 		shadowColor: '#000',
@@ -20,7 +20,7 @@ const gStyles = StyleSheet.create({
 		shadowOpacity: 0.25,
 		shadowRadius: 5.84,
 		elevation: 5,
-	}
+	},
 });
 
 export { gStyles };
