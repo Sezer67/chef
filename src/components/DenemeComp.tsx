@@ -1,12 +1,13 @@
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import useTheme from '../hooks/useTheme'
-import { Sizes } from '../constans';
+import { Fonts, Sizes } from '../constans';
 import { language } from '../languages';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin'
 import { authService } from '../firebase';
+import CustomText from './UI/CustomText';
 
 
 const DenemeComp = () => {
@@ -122,7 +123,7 @@ const DenemeComp = () => {
           value={password}
           onChangeText={(val) => setPassword(val)}
         />
-        <Button title='Renk Değiştir' onPress={() => {changeTheme()}} />
+        {/* <Button title='Renk Değiştir' onPress={() => {changeTheme()}} />
         <Button title='Firebase Create Account' onPress={() => {createAccount()}} />
         <Button title='Firebase Login' onPress={() => {login()}} />
         <Button title='Log Out' onPress={() => {logout()}} />
@@ -130,8 +131,17 @@ const DenemeComp = () => {
         <Button title='Googlew Sign in' onPress={() => {loginWithGoogle()}} />
         <Button title='Get User By username' onPress={() => {
           authService.getUsername();
-        }} />
-        
+        }} /> */}
+        <View style={{ justifyContent: 'center', alignItems:'center' }}>
+          <Text>Poppins</Text>
+          <CustomText text='Black' family={Fonts.poppins.black} variant='subHeader' />
+          <CustomText text='Bold' family={Fonts.poppins.bold} variant='subHeader' />
+          <CustomText text='Semibold' family={Fonts.poppins.semiBold} variant='subHeader' />
+          <CustomText text='Medium' family={Fonts.poppins.medium} variant='subHeader' />
+          <CustomText text='Regular' family={Fonts.poppins.regular} variant='subHeader' />
+          <CustomText text='Thin' family={Fonts.poppins.thin} variant='subHeader' />
+          <CustomText text='Light' family={Fonts.poppins.light} variant='subHeader' />
+        </View>
     </View>
   )
 }

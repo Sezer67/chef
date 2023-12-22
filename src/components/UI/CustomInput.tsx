@@ -36,7 +36,6 @@ const CustomInput: FC<Props> = ({
             label && (
                 <CustomText 
                     text={label}
-                    family='sans-serif'
                     variant='label'
                 />
             )

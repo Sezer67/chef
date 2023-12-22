@@ -19,13 +19,14 @@ const LoginScreen = () => {
         <View style={{ ...styles.card,backgroundColor: themeColors.loginCardbg }}>
             <CustomText 
                 text='Sign In'
-                family='sans-serif'
                 variant='subHeader'
+                family='poppins-medium'
             />
             <CustomText 
                 text='Before continue, please Sign in first!'
                 variant='small'
                 color={themeColors.gray}
+                family={'poppins-light'}
                 style={{marginTop: scale(6), marginBottom: scale(16)}}
             />
             <CustomInput 
@@ -54,7 +55,7 @@ const LoginScreen = () => {
         <View style={styles.otherAuthContainer}>
             <View style={styles.seperatoreContainer}>
                 <View style={styles.seperator} />
-                <CustomText text='Or' color={themeColors.gray} />
+                <CustomText text='Or' color={themeColors.gray} family='poppins-light' />
                 <View style={styles.seperator} />
             </View>
             <CustomText text='Connect With' variant='caption' />

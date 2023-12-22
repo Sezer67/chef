@@ -1,6 +1,6 @@
 import { StyleSheet, Text, TextStyle, View } from 'react-native'
 import React, { FC } from 'react'
-import { Colors, LightColors, Sizes } from '../../constans';
+import { Colors, Fonts, LightColors, Sizes } from '../../constans';
 import useTheme from '../../hooks/useTheme';
 
 type Props = {
@@ -9,7 +9,7 @@ type Props = {
     style?: TextStyle | TextStyle[];
     color?: string,
     text: string;
-    family?: string;
+    family?: keyof typeof Fonts;
 }
 
 const CustomText: FC<Props> = ({
@@ -17,7 +17,7 @@ const CustomText: FC<Props> = ({
     variant = 'body',
     text,
     style,
-    family = 'sans-serif',
+    family = 'poppins-regular',
     color,
 }) => {
     const { themeColors } = useTheme();
@@ -36,7 +36,7 @@ const CustomText: FC<Props> = ({
 				{ 
                     fontSize: Sizes[variant],
                     color: color || themeColors.textColor,
-                    fontFamily: family,
+                    fontFamily: Fonts[family],
                 },
 				{ ...passedStyles },
 			]}

@@ -81,7 +81,8 @@ const CustomButton: FC<Props> = ({
         }
         <CustomText 
             text={title} 
-            variant='button' 
+            variant='button'
+            family={variant === 'ghost' || variant === 'text' ? 'poppins-regular' : 'poppins-medium'}
             color={titleColor || Colors.light} 
             style={ titleSize ? {fontSize: titleSize} : {} }    
         />

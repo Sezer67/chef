@@ -10,4 +10,14 @@ const Sizes = {
 	caption: scale(14), // foto altı açıklamalar
 };
 
-export { Sizes };
+const Fonts = {
+	'poppins-black': 'Poppins-Black',
+	'poppins-medium': 'Poppins-Medium',
+	'poppins-regular': 'Poppins-Regular',
+	'poppins-semibold': 'Poppins-SemiBold',
+	'poppins-thin': 'Poppins-Thin',
+	'poppins-light': 'Poppins-Light',
+	'poppins-bold': 'Poppins-Bold',
+}
+
+export { Sizes, Fonts };
