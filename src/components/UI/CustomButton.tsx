@@ -1,7 +1,7 @@
 import { StyleSheet, TouchableOpacity, TouchableOpacityProps, View } from 'react-native'
 import React, { FC, useEffect, useState } from 'react'
 import CustomText from './CustomText';
-import useTheme from '../../hooks/useTheme';
+import useAppTheme from '../../hooks/useAppTheme';
 import { Colors, Sizes, gStyles } from '../../constans';
 import { scale } from 'react-native-size-matters';
 
@@ -34,7 +34,7 @@ const CustomButton: FC<Props> = ({
     shadow,
     ...props
 }) => {
-    const { themeColors } = useTheme();
+    const { themeColors } = useAppTheme();
     const [buttonVariantStyle, setButtonVariantStyle] = useState({});
 
     useEffect(() => {

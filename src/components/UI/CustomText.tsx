@@ -1,7 +1,7 @@
 import { StyleSheet, Text, TextStyle, View } from 'react-native'
 import React, { FC } from 'react'
 import { Colors, Fonts, LightColors, Sizes } from '../../constans';
-import useTheme from '../../hooks/useTheme';
+import useAppTheme from '../../hooks/useAppTheme';
 
 type Props = {
     capitalize?: boolean;
@@ -20,7 +20,7 @@ const CustomText: FC<Props> = ({
     family = 'poppins-regular',
     color,
 }) => {
-    const { themeColors } = useTheme();
+    const { themeColors } = useAppTheme();
 
     if (capitalize) {
 		text = text.toUpperCase();

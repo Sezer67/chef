@@ -5,7 +5,8 @@ import { useFonts } from 'expo-font';
 import { useCallback } from 'react';
 import { Text, View } from 'react-native';
 import { Fonts } from './src/constans';
-import DenemeComp from './src/components/DenemeComp';
+import { NavigationContainer } from '@react-navigation/native';
+import RootStack from './src/navigations/RootStack';
 
 GoogleSignin.configure({
   webClientId: '757483130139-0g39jjal70furmuga405gbm2hbggth68.apps.googleusercontent.com'
@@ -35,8 +36,10 @@ export default function App() {
   }
 
   return (
-    <ThemeProvider>
-      <LoginScreen />
-    </ThemeProvider>
+    <NavigationContainer>
+      <ThemeProvider>
+        <RootStack />
+      </ThemeProvider>
+    </NavigationContainer>
   );
 }

@@ -1,8 +1,7 @@
 import { useContext } from 'react';
 import { ThemeContext } from '../contexts/theme.context';
-import { LightColors } from '../constans';
 
-const useTheme = () => {
+const useAppTheme = () => {
 	const context = useContext(ThemeContext);
 	if (!context) {
 		throw new Error('Theme Provider Henüz Oluşturulamadi');
@@ -10,4 +9,4 @@ const useTheme = () => {
 	return context;
 };
 
-export default useTheme;
+export default useAppTheme;

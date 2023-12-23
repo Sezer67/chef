@@ -1,6 +1,6 @@
-import { Button, StyleSheet, Text, TextInput, View } from 'react-native'
+import { Button, SafeAreaView, StyleSheet, Text, TextInput, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import useTheme from '../hooks/useTheme'
+import useAppTheme from '../hooks/useAppTheme'
 import { Fonts, Sizes } from '../constans';
 import { language } from '../languages';
 import auth from '@react-native-firebase/auth';
@@ -11,7 +11,7 @@ import CustomText from './UI/CustomText';
 
 
 const DenemeComp = () => {
-  const {themeColors, changeTheme} = useTheme();
+  const {themeColors, changeTheme} = useAppTheme();
   const [mail, setMail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
@@ -101,7 +101,7 @@ const DenemeComp = () => {
   }
 
   return (
-    <View style={[{ flex: 1 ,backgroundColor: themeColors.backgroundColor, }]}>
+    <SafeAreaView style={[{ flex: 1 ,backgroundColor: themeColors.backgroundColor, }]}>
         <Text style={{ fontSize: Sizes.header }} >Header</Text>
         <Text style={{ fontSize: Sizes.subHeader, color: themeColors.textColor }} >Sub Header</Text>
         <Text style={{ fontSize: Sizes.body }} >Body</Text>
@@ -134,15 +134,15 @@ const DenemeComp = () => {
         }} /> */}
         <View style={{ justifyContent: 'center', alignItems:'center' }}>
           <Text>Poppins</Text>
-          <CustomText text='Black' family={Fonts.poppins.black} variant='subHeader' />
-          <CustomText text='Bold' family={Fonts.poppins.bold} variant='subHeader' />
-          <CustomText text='Semibold' family={Fonts.poppins.semiBold} variant='subHeader' />
-          <CustomText text='Medium' family={Fonts.poppins.medium} variant='subHeader' />
-          <CustomText text='Regular' family={Fonts.poppins.regular} variant='subHeader' />
-          <CustomText text='Thin' family={Fonts.poppins.thin} variant='subHeader' />
-          <CustomText text='Light' family={Fonts.poppins.light} variant='subHeader' />
+          <CustomText text='Black' family={'poppins-black'} variant='subHeader' />
+          <CustomText text='Bold' family={'poppins-bold'} variant='subHeader' />
+          <CustomText text='Semibold' family={'poppins-semibold'} variant='subHeader' />
+          <CustomText text='Medium' family={'poppins-medium'} variant='subHeader' />
+          <CustomText text='Regular' family={'poppins-regular'} variant='subHeader' />
+          <CustomText text='Thin' family={'poppins-thin'} variant='subHeader' />
+          <CustomText text='Light' family={'poppins-light'} variant='subHeader' />
         </View>
-    </View>
+    </SafeAreaView>
   )
 }
 

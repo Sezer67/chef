@@ -2,7 +2,7 @@ import { StyleSheet, Text, TextInput, TextInputProps, TouchableOpacity, View } f
 import React, { FC, useState } from 'react'
 import CustomText from './CustomText';
 import { Colors, Sizes } from '../../constans';
-import useTheme from '../../hooks/useTheme';
+import useAppTheme from '../../hooks/useAppTheme';
 import { Ionicons } from '@expo/vector-icons';
 import { scale } from 'react-native-size-matters';
 
@@ -24,7 +24,7 @@ const CustomInput: FC<Props> = ({
     label,
     ...props
 }) => {
-    const { themeColors } = useTheme();
+    const { themeColors } = useAppTheme();
 	const [isLock, setIsLock] = useState(true);
 
     const toggleLock = () => {
