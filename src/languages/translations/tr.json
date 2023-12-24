@@ -8,5 +8,9 @@
     "forgotPassword": "Şifremi Unuttum?",
     "or": "Veya",
     "connectWith": "Kullanarak Bağlan",
-    "googleSignin": "Google İle Devam Et"
+    "googleSignin": "Google İle Devam Et",
+    "signup": "Kayıt Ol",
+    "signupDesc": "Yeni bir hesap oluştur",
+    "email": "Email",
+    "phoneNumber": "Telefon Numarası"
 }

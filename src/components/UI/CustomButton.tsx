@@ -1,4 +1,4 @@
-import { StyleSheet, TouchableOpacity, TouchableOpacityProps, View } from 'react-native'
+import { Platform, StyleSheet, TouchableOpacity, TouchableOpacityProps, View } from 'react-native'
 import React, { FC, useEffect, useState } from 'react'
 import CustomText from './CustomText';
 import useAppTheme from '../../hooks/useAppTheme';
@@ -36,10 +36,30 @@ const CustomButton: FC<Props> = ({
 }) => {
     const { themeColors } = useAppTheme();
     const [buttonVariantStyle, setButtonVariantStyle] = useState({});
-
+    const [textStyle, setTextStyle] = useState({});
+    
     useEffect(() => {
         setButtonVariantStyle(getButtonVariant());
     }, [variant]);
+
+    useEffect(() => {
+        initTextStyle();
+    },[titleSize, props.withIcon])
+
+    const initTextStyle = () => {
+        if(titleSize) {
+            setTextStyle((val) => ({
+                ...val,
+                fontSize: titleSize,
+            }))
+        }
+        if(props.withIcon && Platform.OS === 'android') {
+            setTextStyle((val) => ({
+                ...val,
+                marginBottom: -2,
+            }))
+        }
+    }
 
     const getButtonVariant = () => {
         switch (variant) {
@@ -84,7 +104,7 @@ const CustomButton: FC<Props> = ({
             variant='button'
             family={variant === 'ghost' || variant === 'text' ? 'poppins-regular' : 'poppins-medium'}
             color={titleColor || Colors.light} 
-            style={ titleSize ? {fontSize: titleSize} : {} }    
+            style={[textStyle]}    
         />
         {
             (props.withIcon && props.position === 'right') ?
