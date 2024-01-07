@@ -12,5 +12,19 @@
     "signup": "Kayıt Ol",
     "signupDesc": "Yeni bir hesap oluştur",
     "email": "Email",
-    "phoneNumber": "Telefon Numarası"
+    "phoneNumber": "Telefon Numarası",
+    "emailError": "Formata uygun bir email adresi giriniz.",
+    "requiredInput": "Bu alan doldurulmak zorundadır.",
+    "passwordLengthError": "Şifre en az 6 karakter olmalıdır.",
+    "usernameLengthError": "Kullanıcı adı 4 ile 15 karakter arasında olmalıdır.",
+    "auth/username-already-in-use": "Bu kullanıcı zaten kullanılıyor.",
+    "auth/email-already-in-use": "Bu email zaten kullanılıyor.",
+    "auth/sigin-canceled": "Giriş işlemi iptal edildi",
+    "auth/in-progress": "In Progress Hatası",
+    "auth/play-service-not-avaliable": "Google Play Hizmetlerine ulaşılamıyor",
+    "firstName": "Adınız",
+    "lastName": "Soyadınız",
+    "emptyFieldError": "Boş bırakılmaması gereken alanları doldurunuz.",
+    "username-notfound": "Kullanıcı adı bulunamadı.",
+    "auth/invalid-credential": "Yanlış şifre girdiniz."
 }

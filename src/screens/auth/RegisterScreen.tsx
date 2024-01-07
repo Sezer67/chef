@@ -6,28 +6,69 @@ import CustomText from '../../components/UI/CustomText';
 import { language } from '../../languages';
 import CustomInput from '../../components/UI/CustomInput';
 import CustomButton from '../../components/UI/CustomButton';
-import { Octicons } from '@expo/vector-icons';
 import { useAppNavigaton } from '../../hooks/useAppNavigation';
+import useAppForm from '../../hooks/useAppForm';
+import { errorUtil } from '../../utils';
+import { authService } from '../../firebase';
+import { useDispatch } from 'react-redux';
+import { userActions } from '../../redux/user.reducer';
+import { appActions } from '../../redux/app.reducer';
+import { modalTypes } from '../../types';
 const { width, height } = Dimensions.get('window');
 
 const RegisterScreen = () => {
     const { themeColors } = useAppTheme();
+    const dispatch = useDispatch();
     const navigation = useAppNavigaton();
+    const username = useAppForm({ type: 'username' });
+    const email = useAppForm({ type: 'email' });
+    const phoneNumber = useAppForm({ type: 'phone' });
+    const password = useAppForm({ type: 'password' });
+
+    const handleRegisterPress = async () => {
+        const empty = errorUtil.isIncludeEmptyFieldToStates([username, password, email, phoneNumber]);
+        if(empty) {
+            dispatch(appActions.showModal({ activeModal: modalTypes.Variables.Message, data: {
+                message: language('emptyFieldError'),
+                status: 'error',
+            }}));
+        }
+        const error = errorUtil.isIncludeErrorToStates([username, password, email, phoneNumber]);
+        if(error) {
+            dispatch(appActions.showModal({ activeModal: modalTypes.Variables.Message, data: {
+                message: error,
+                status: 'error',
+            }}))
+        }
+        try {
+            const user = await authService.registerEmailAndPassword({
+                email: email.value,
+                password: password.value,
+                username: username.value,
+                phoneNumber: phoneNumber.value
+            });
+            dispatch(userActions.firstLogin({
+                id: user.user.uid,
+                email: email.value,
+                username: username.value,
+                withGoogle: false,
+                phoneNumber: phoneNumber.value,
+            }))
+            navigation.navigate('AccountComplete', { username: username.value, phoneNumber: phoneNumber.value, withGoogle: false });
+        } catch (error: any) {
+            if(!(language(error).includes('missing') && language(error).includes('translation'))) {
+                dispatch(appActions.showModal({ activeModal: modalTypes.Variables.Message, data: {
+                    message: language(error),
+                    status: 'error',
+                }}))
+            } else {
+                console.log("yok ",error);
+            }
+        }
+    }
 
     return (
         <ScrollView contentContainerStyle={[styles.container, { backgroundColor: themeColors.backgroundColor }]}>
-            <View style={{ width: '100%', alignItems: 'flex-start', marginBottom: scale(16) }}>
-                <CustomButton 
-                    onPress={() => navigation.goBack()}
-                    style={{ width: 'auto' }}
-                    title={language('singin')}
-                    titleColor={themeColors.textColor}
-                    variant='text'
-                    withIcon
-                    icon={<Octicons name="chevron-left" size={32} color="black" />}
-                    marginBetweenText={12}
-                />
-            </View>
             <View style={[styles.card, {backgroundColor: themeColors.loginCardbg}]}>
                 <CustomText 
                     text={language('signup')}
@@ -43,26 +84,46 @@ const RegisterScreen = () => {
                 />
                 <CustomInput 
                     label={language('username')}
-                    placeholder='@asdddsa.com'
+                    placeholder='myusername'
+                    error={!!username.error}
+                    value={username.value}
+                    onChangeText={username.onChange}
                 />
                 <CustomInput 
                     label={language('email')}
-                    placeholder='@asdddsa.com'
+                    keyboardType='email-address'
+                    placeholder='myemail@host.com'
+                    value={email.value}
+                    error={!!email.error}
+                    onChangeText={email.onChange}
                 />
                 <CustomInput 
                     label={language('phoneNumber')}
                     placeholder='0555 555 55 55'
+                    error={!!phoneNumber.error}
+                    value={phoneNumber.value}
+                    onChangeText={phoneNumber.onChange}
                 />
                 <CustomInput 
                     label={language('password')}
                     placeholder='******'
                     secureTextEntry
+                    error={!!password.error}
+                    value={password.value}
+                    onChangeText={password.onChange}
                 />
                 <CustomButton
                     title={language('signup')} 
+                    onPress={handleRegisterPress}
                     shadow='small'
                     variant='filled'
                     style={{ marginBottom: scale(16), marginTop: scale(8) }}
+                />
+                <CustomButton
+                    title={language('singin')} 
+                    variant='ghost'
+                    titleColor={themeColors.textColor}
+                    onPress={() => navigation.goBack()}
                 />
             </View>
         </ScrollView>
@@ -75,8 +136,8 @@ const styles = StyleSheet.create({
     container: {
         width: width,
         height: height,
-        paddingTop: scale(32),
         alignItems: 'center',
+        justifyContent: 'center',
         paddingHorizontal: scale(16),
     },
     card: {

@@ -17,11 +17,15 @@ type ClearButtonProps =
 
 type Props = {
     label?: string;
+    error?: boolean;
+    successIcon?: boolean;
 } & TextInputProps;
 
 
 const CustomInput: FC<Props> = ({
     label,
+    error = false,
+    successIcon = false,
     ...props
 }) => {
     const { themeColors } = useAppTheme();
@@ -48,10 +52,11 @@ const CustomInput: FC<Props> = ({
                     {
                         backgroundColor: themeColors.backgroundColor,
                         color: themeColors.textColor,
-            
-                    }
+                    },
+                    error ? { borderWidth: 1, borderColor: 'red' } : {},
+                    props.style,
                 ]}
-                placeholderTextColor={themeColors.gray}
+                placeholderTextColor={error ? 'red' : themeColors.gray}
                 secureTextEntry={props.secureTextEntry ? isLock : false}
             />
             {props.secureTextEntry && (
@@ -66,6 +71,13 @@ const CustomInput: FC<Props> = ({
                     />
                 </TouchableOpacity>
             )}
+            {
+                successIcon && (
+                    <View style={styles.rightIcon} >
+                        <Ionicons name="ios-checkmark-circle" size={scale(20)} color={'#5cb85c'} />
+                    </View>
+                )
+            }
         </View>
     </View>
   )
@@ -91,4 +103,9 @@ const styles = StyleSheet.create({
 		right: scale(12),
 		top: scale(20),
 	},
+    rightIcon: {
+        position: 'absolute',
+        top: scale(21),
+        right: scale(8),
+    }
 })

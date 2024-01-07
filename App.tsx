@@ -7,6 +7,10 @@ import { Text, View } from 'react-native';
 import { Fonts } from './src/constans';
 import { NavigationContainer } from '@react-navigation/native';
 import RootStack from './src/navigations/RootStack';
+import { Provider } from 'react-redux';
+import { persistor, store } from './src/redux/store';
+import { PersistGate } from 'redux-persist/integration/react';
+import CustomModal from './src/components/UI/CustomModal';
 
 GoogleSignin.configure({
   webClientId: '757483130139-0g39jjal70furmuga405gbm2hbggth68.apps.googleusercontent.com'
@@ -38,7 +42,12 @@ export default function App() {
   return (
     <NavigationContainer>
       <ThemeProvider>
-        <RootStack />
+        <Provider store={store}>
+          <PersistGate loading={null} persistor={persistor}>
+            <CustomModal />
+            <RootStack />
+          </PersistGate>
+        </Provider>
       </ThemeProvider>
     </NavigationContainer>
   );
