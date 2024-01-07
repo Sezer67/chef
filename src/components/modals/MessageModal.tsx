@@ -9,6 +9,7 @@ import CustomText from '../UI/CustomText'
 import CustomButton from '../UI/CustomButton'
 import { useDispatch } from 'react-redux'
 import { appActions } from '../../redux/app.reducer'
+import { language } from '../../languages'
 
 type PropsType = modalTypes.MessageDataType
 const { width, height } = Dimensions.get('window');
@@ -35,7 +36,7 @@ const MessageModal:FC<PropsType> = ({ message, status }) => {
       </View>
       <View style={{ alignItems: 'center', paddingVertical: 12, marginBottom: 8 }}>
         <CustomText 
-          text={status === 'error' ? 'Hata!' : 'Harika!'}
+          text={status === 'error' ? language('modalError') : language('modalSuccess')}
           family='poppins-bold'
           variant='subHeader'
         />
@@ -46,7 +47,7 @@ const MessageModal:FC<PropsType> = ({ message, status }) => {
         />
         <CustomButton 
           onPress={handleClose}
-          title='Kapat'
+          title={language('modalClose')}
           style={{
             width: 'auto',
             height: 'auto',

@@ -26,5 +26,18 @@
     "lastName": "Soyadınız",
     "emptyFieldError": "Boş bırakılmaması gereken alanları doldurunuz.",
     "username-notfound": "Kullanıcı adı bulunamadı.",
-    "auth/invalid-credential": "Yanlış şifre girdiniz."
+    "auth/invalid-credential": "Yanlış şifre girdiniz.",
+    "imageUploading": "Resim Yükleniyor...",
+    "selectFromCamera": "Fotoğraf Çek",
+    "selectFromGalery": "Galeriden Yükle",
+    "clearImage": "Resmi Sil",
+    "changeProfilePhoto": "Profil Resmini Düzenle",
+    "modalError": "Hata!",
+    "modalSuccess": "Harika!",
+    "modalClose": "Kapat",
+    "completeInfo": "Bilgilerini Tamamla",
+    "completeInfoDesc": "Lütfen istenen bilgileri doldurunuz!",
+    "description": "Açıklama",
+    "contuniue": "Devam Et",
+    "unexpectedError": "Beklenmeyen bir hata oluştu"
 }

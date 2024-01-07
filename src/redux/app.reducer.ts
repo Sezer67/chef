@@ -1,17 +1,20 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, Tuple, createSlice } from "@reduxjs/toolkit";
 import { modalTypes, reducerTypes } from "../types";
 import { appActionTypes } from "./types";
 
 const initialData: modalTypes.DataType = {
     message: '',
     status: 'error',
+    isRemovableButton: false,
+    removeAction: () => null,
+    headerText: '',
 }
 
 const initialState: reducerTypes.AppReducer = {
-    activeModal: 0,
-    data: initialData,
+    activeModal: null,
+    data: {...initialData},
     isLoading: false,
-    modalVisible: true,
+    modalVisible: false,
 }
 
 const appSlice = createSlice({

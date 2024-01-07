@@ -42,7 +42,14 @@
           }
         }
       ],
-      "@react-native-google-signin/google-signin"
+      "@react-native-google-signin/google-signin",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Uygulamanın fotoğraflarınıza erişmesi için izin verin.",
+          "cameraPermission": "Uygulamanın kameranıza erişmesi için izin verin."
+        }
+      ]
     ],
     "extra": {
       "eas": {

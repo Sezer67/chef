@@ -1,5 +1,6 @@
 export enum Variables {
     Message = 0,
+    SelectPhoto = 1,
 }
 
 export type MessageDataType = {
@@ -7,4 +8,9 @@ export type MessageDataType = {
     status: 'error' | 'success'; 
 }
 
-export type DataType = MessageDataType;
+export type SelectPhotoDataType = {
+    headerText: string;
+    isRemovableButton: boolean;
+    removeAction: () => void | null;
+}
+export type DataType = MessageDataType & SelectPhotoDataType;

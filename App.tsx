@@ -3,7 +3,7 @@ import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import LoginScreen from './src/screens/auth/LoginScreen';
 import { useFonts } from 'expo-font';
 import { useCallback } from 'react';
-import { Text, View } from 'react-native';
+import { LogBox, Text, View } from 'react-native';
 import { Fonts } from './src/constans';
 import { NavigationContainer } from '@react-navigation/native';
 import RootStack from './src/navigations/RootStack';
@@ -17,6 +17,8 @@ GoogleSignin.configure({
 })
 
 export default function App() {
+
+  LogBox.ignoreAllLogs();
 
   const [fontsLoaded] = useFonts({
     [Fonts['poppins-black']]: require('./assets/fonts/poppins/Poppins-Black.ttf'),

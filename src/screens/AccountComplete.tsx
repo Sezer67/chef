@@ -15,6 +15,8 @@ import { authService } from '../firebase';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootReduxType } from '../types/reducer.type';
 import { userActions } from '../redux/user.reducer';
+import { appActions } from '../redux/app.reducer';
+import { modalTypes } from '../types';
 
 const { width, height } = Dimensions.get('window');
 
@@ -48,11 +50,16 @@ const AccountComplete = () => {
       dispatch(userActions.firstLogin(info as never));
       // navigate to home
     } catch (error: any) {
+      let message = '';
       if(!(language(error).includes('missing') && language(error).includes('translation'))) {
-        console.log("var ",language(error));
+        message = language(error);
       } else {
-        console.log("yok ",error);
+        message = error;
       }
+      dispatch(appActions.showModal({ activeModal: modalTypes.Variables.Message, data: {
+        message: message,
+        status: 'error'
+      }}));
     }
   }
 
@@ -63,12 +70,12 @@ const AccountComplete = () => {
       <StatusBar style={theme === 'dark' ? 'light' : 'dark'} backgroundColor={themeColors.backgroundColor} />
       <View style={[ styles.card, { backgroundColor: themeColors.loginCardbg } ]}>
         <CustomText 
-          text={'Bilgilerini Tamamla'}
+          text={language('completeInfo')}
           variant='subHeader'
           family='poppins-medium'
         />
         <CustomText 
-          text={'Lütfen istenen bilgileri doldurunuz!'}
+          text={language('completeInfoDesc')}
           variant='small'
           color={themeColors.gray}
           family={'poppins-light'}
@@ -107,7 +114,7 @@ const AccountComplete = () => {
           </View>
         </View>
         <CustomInput
-          label={'Açıklama'}
+          label={language('description')}
           value={description.value}
           onChangeText={description.onChange}
           error={!!description.error}
@@ -125,7 +132,7 @@ const AccountComplete = () => {
         />
         <CustomButton 
           onPress={handleContinuePress}
-          title={'Devam Et'} 
+          title={language('contuniue')} 
           shadow='small'
           variant='filled'
           style={{ marginBottom: scale(16), marginTop: scale(8) }}

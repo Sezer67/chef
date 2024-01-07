@@ -26,6 +26,12 @@ const userSlice = createSlice({
                 isAuth: true,
             }
         },
+        setUser:(state, action: PayloadAction<userActionTypes.SetUserPayload>) =>  {
+            return {
+                ...state,
+                ...action.payload,
+            }
+        },
         logout: () => {
             return {
                 ...initialState,

@@ -51,14 +51,16 @@ const LoginScreen = () => {
             console.log("password : ",password.value);
             const res = await authService.normalSignIn({ username: username.value, password: password.value });
         } catch (error: any) {
+            let message = '';
             if(!(language(error).includes('missing') && language(error).includes('translation'))) {
-                dispatch(appActions.showModal({ activeModal: modalTypes.Variables.Message, data: {
-                    message: language(error),
-                    status: 'error',
-                }}))
+                message = language(error);
             } else {
-                console.log("yok ",error);
+                message = error;
             }
+            dispatch(appActions.showModal({ activeModal: modalTypes.Variables.Message, data: {
+                message: message,
+                status: 'error'
+            }}));
         }
     }
 

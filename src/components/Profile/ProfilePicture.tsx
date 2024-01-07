@@ -1,10 +1,13 @@
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootReduxType } from '../../types/reducer.type';
 import { scale } from 'react-native-size-matters';
 import { FontAwesome, MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 import { Colors } from '../../constans';
+import { appActions } from '../../redux/app.reducer';
+import { modalTypes } from '../../types';
+import { language } from '../../languages';
 
 type Props = {
   isChangable?: boolean;
@@ -13,19 +16,24 @@ type Props = {
 const ProfilePicture:React.FC<Props> = ({isChangable = false}) => {
   const [uri, setUri] = useState<string | undefined>(undefined);
   const userState = useSelector((state: RootReduxType) => state.user);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    // debugger;
     if(userState.photoURL){
-      console.log("user : ",userState);
       setUri(userState.photoURL);
     }
   },[userState]);
-  // redux kurulacak. user bilgisi redux dan okunacak. Burayı görüyorsa kesin logindir
-  // avatarlardan seç
-  // camera
-  // galery
 
+  const handlePressChangePhoto = () => {
+    dispatch(appActions.showModal({
+      activeModal: modalTypes.Variables.SelectPhoto,
+       data: {
+        isRemovableButton: true, 
+        removeAction: () => {console.log("remove click")},
+        headerText: language('changeProfilePhoto'),
+      }}));
+  }
+  
   return (
     <View style={[styles.imageContainer, !uri ? {borderWidth: 0.5} : {}]}>
       {
@@ -41,9 +49,9 @@ const ProfilePicture:React.FC<Props> = ({isChangable = false}) => {
       }
       {
         isChangable && (
-          <View style={styles.changeContainer}>
+          <TouchableOpacity onPress={handlePressChangePhoto} style={styles.changeContainer}>
             <MaterialCommunityIcons name="image-edit" size={scale(16)} color={Colors.primary} />
-          </View>
+          </TouchableOpacity>
         )
       }
     </View>
