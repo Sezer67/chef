@@ -95,7 +95,7 @@ const AccountComplete = () => {
           error={!!username.error}
           placeholder='myusername'
           editable={!(!!userState.username)}
-          successIcon={!!userState.username}
+          rightIcon={!!userState.username ? 'success' : undefined}
         />
         <View style={{ width: '100%' ,flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
           <View style={{ width: '45%' }}>
@@ -132,7 +132,7 @@ const AccountComplete = () => {
           error={!!phoneNumber.error}
           placeholder='555 555 55 55'
           editable={!(!!userState.phoneNumber)}
-          successIcon={!!userState.phoneNumber}
+          rightIcon={!!userState.phoneNumber ? 'success' : undefined}
         />
         <CustomButton 
           onPress={handleContinuePress}

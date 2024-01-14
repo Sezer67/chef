@@ -48,5 +48,8 @@
     "follows": "Takip",
     "followers": "Takipçi",
     "posts": "Gönderi",
-    "logout": "Çıkış Yap"
+    "logout": "Çıkış Yap",
+    "cancel": "İptal",
+    "lastSearchs": "Son Aramalar",
+    "seeAll": "Tümünü Gör"
 }

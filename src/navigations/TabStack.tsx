@@ -1,6 +1,6 @@
 import { Platform, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
-import { BottomTabBarProps, BottomTabNavigationOptions, createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { BottomTabNavigationOptions, createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { ParamListBase, RouteProp, useTheme } from '@react-navigation/native';
 import { initialWindowMetrics } from 'react-native-safe-area-context';
 import useAppTheme from '../hooks/useAppTheme';
@@ -9,6 +9,7 @@ import { AntDesign, Entypo, FontAwesome5 } from '@expo/vector-icons';
 import ProfileScreen from '../screens/ProfileScreen';
 import { TabNavigatorParamList } from './navigation.type';
 import { scale } from 'react-native-size-matters';
+import SearchScreen from '../screens/SearchScreen';
 
 const Tab = createBottomTabNavigator<TabNavigatorParamList>();
 
@@ -94,7 +95,7 @@ const TabStack = () => {
         />
         <Tab.Screen 
             name='Search' 
-            component={() => (<SafeAreaView><Text>Search</Text></SafeAreaView>)} 
+            component={SearchScreen} 
             options={tabScreenOptions('Search')}
         />
         <Tab.Screen 

@@ -1,9 +1,9 @@
-import { StyleSheet, Text, TextInput, TextInputProps, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, TextInput, TextInputProps, TouchableOpacity, View } from 'react-native'
 import React, { FC, useState } from 'react'
 import CustomText from './CustomText';
 import { Colors, Sizes } from '../../constans';
 import useAppTheme from '../../hooks/useAppTheme';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, AntDesign } from '@expo/vector-icons';
 import { scale } from 'react-native-size-matters';
 
 type ClearButtonProps =
@@ -18,14 +18,16 @@ type ClearButtonProps =
 type Props = {
     label?: string;
     error?: boolean;
-    successIcon?: boolean;
+    rightIcon?: 'success' | 'search';
+    inputRef?: any;
 } & TextInputProps;
 
 
 const CustomInput: FC<Props> = ({
     label,
     error = false,
-    successIcon = false,
+    rightIcon = undefined,
+    inputRef = undefined,
     ...props
 }) => {
     const { themeColors } = useAppTheme();
@@ -34,6 +36,18 @@ const CustomInput: FC<Props> = ({
     const toggleLock = () => {
 		setIsLock(prev => !prev);
 	};
+
+    const renderRightIcon = () => {
+        switch(rightIcon) {
+            case 'success':
+                return <Ionicons name="ios-checkmark-circle" size={scale(20)} color={'#5cb85c'} />;
+            case 'search':
+                return <AntDesign name="search1" size={scale(18)} color={themeColors.textColor} />;
+            default:
+                return null;
+        }
+    }
+
   return (
     <View style={styles.container}>
         {
@@ -47,6 +61,7 @@ const CustomInput: FC<Props> = ({
         <View>
             <TextInput
                 {...props}
+                ref={inputRef}
                 style={[
                     styles.input,
                     {
@@ -72,9 +87,9 @@ const CustomInput: FC<Props> = ({
                 </TouchableOpacity>
             )}
             {
-                successIcon && (
+                rightIcon && (
                     <View style={styles.rightIcon} >
-                        <Ionicons name="ios-checkmark-circle" size={scale(20)} color={'#5cb85c'} />
+                        {renderRightIcon()}
                     </View>
                 )
             }
