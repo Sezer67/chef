@@ -15,7 +15,7 @@ export type CompleteProfileType = {
     username: string;
     firstName: string;
     lastName: string;
-    photoURL: string | null;
+    photoURL?: string;
     description: string | null;
     phoneNumber: string;
     withGoogle: boolean;

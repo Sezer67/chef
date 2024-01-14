@@ -13,6 +13,7 @@ export type AccountCompleteParamsType =  {
 export type RootStackParamList = {
     Auth: NavigatorScreenParams<AuthStackParamList>;
     AccountComplete: AccountCompleteParamsType;
+    App: TabNavigatorParamList | undefined;
 }
 
 export type AuthStackParamList = {
@@ -20,6 +21,14 @@ export type AuthStackParamList = {
         asd?: string;
     };
     Register: undefined;
+}
+
+export type TabNavigatorParamList = {
+    Home: undefined;
+    Search: undefined;
+    NewPost: undefined;
+    Reels: undefined;
+    Profile: undefined;
 }
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> = NativeStackScreenProps<RootStackParamList, T>;

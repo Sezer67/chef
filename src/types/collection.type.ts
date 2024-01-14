@@ -13,4 +13,5 @@ export type UserCollection = {
     phoneNumber: string;
     photoURL: string | null;
     withGoogle: boolean;
+    description: string | null;
 }

@@ -50,6 +50,7 @@ const LoginScreen = () => {
             console.log("username : ",username.value);
             console.log("password : ",password.value);
             const res = await authService.normalSignIn({ username: username.value, password: password.value });
+            getUserAndNavigation();
         } catch (error: any) {
             let message = '';
             if(!(language(error).includes('missing') && language(error).includes('translation'))) {
@@ -88,7 +89,7 @@ const LoginScreen = () => {
                 // Burdan gidildiğinde firstName,lastName,photo, phoneNumber (default doldur) - username  iste
                 // bilgilerini aldıktan sonra usernames koleksiyonuna ekle
             } else {
-                // normal login
+                getUserAndNavigation();
                 console.log("kaydolmuş zaten : ",result);
                 // login sayfasına yönlendir
             }
@@ -100,6 +101,16 @@ const LoginScreen = () => {
     const handleForgotPasswordPress = () => {
         authService.logout();
         dispatch(userActions.logout());
+    }
+
+    const getUserAndNavigation = async () => {
+        try {
+            const user = await authService.getCurrentUser();
+            dispatch(userActions.login(user));
+            navigation.navigate('App');
+        } catch (error) {
+            
+        }
     }
 
     return (

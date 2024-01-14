@@ -8,6 +8,9 @@ import { Colors } from '../../constans';
 import { appActions } from '../../redux/app.reducer';
 import { modalTypes } from '../../types';
 import { language } from '../../languages';
+import { storageService, userService } from '../../firebase';
+import storage from '@react-native-firebase/storage';
+import { userActions } from '../../redux/user.reducer';
 
 type Props = {
   isChangable?: boolean;
@@ -20,16 +23,40 @@ const ProfilePicture:React.FC<Props> = ({isChangable = false}) => {
 
   useEffect(() => {
     if(userState.photoURL){
-      setUri(userState.photoURL);
+      getPhotoUrl(userState.photoURL);
+    } else {
+      setUri(undefined);
     }
   },[userState]);
+
+  const getPhotoUrl = async (url: string) => {
+    try {
+      const pp =  await storageService.getImage(url);
+      setUri(pp);
+    } catch (error) {
+      
+    }
+  }
+
+  const removeProfilePicture = async () => {
+    try {
+      console.log("gfeldi");
+      await userService.updateProfilePicture(userState.id, null);
+      if(userState.photoURL){
+        await storage().ref(userState.photoURL).delete();
+      }
+      dispatch(userActions.setUser({ photoURL: null }))
+    } catch (error) {
+      console.log("hata.Ç ",error);
+    }
+  }
 
   const handlePressChangePhoto = () => {
     dispatch(appActions.showModal({
       activeModal: modalTypes.Variables.SelectPhoto,
        data: {
         isRemovableButton: true, 
-        removeAction: () => {console.log("remove click")},
+        removeAction: removeProfilePicture,
         headerText: language('changeProfilePhoto'),
       }}));
   }

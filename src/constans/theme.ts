@@ -15,6 +15,7 @@ const LightColors = {
 	textColor: '#333333',
 	gray: '#8a8a8a',
 	ghostButton: '#E9E1E1',
+	tabBarColor: '#fff',
 };
 
 const DarkColors: typeof LightColors = {
@@ -23,6 +24,7 @@ const DarkColors: typeof LightColors = {
 	textColor: '#ffffff',
 	gray: '#E5E5E5',
 	ghostButton: '#0F1012',
+	tabBarColor: '#000',
 };
 
 export { Colors, LightColors, DarkColors };

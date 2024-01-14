@@ -11,4 +11,7 @@ export type ShowModalPayloadType =
 	| {
 		activeModal: modalTypes.Variables.SelectPhoto;
 		data: modalTypes.SelectPhotoDataType;
+	} | {
+		activeModal: modalTypes.Variables;
+		data: undefined;
 	}

@@ -31,7 +31,7 @@ const AccountComplete = () => {
   const lastName = useAppForm({ defaultValue: route.params.lastName });
   const phoneNumber = useAppForm({ type: 'phone', defaultValue: route.params.phoneNumber });
   const description = useAppForm({ });
-  const photoURL = useAppForm({ defaultValue: route.params.photoURL });
+  
 
   const handleContinuePress = async () => {
     try {
@@ -43,7 +43,6 @@ const AccountComplete = () => {
         description: description.value,
         firstName: firstName.value,
         lastName: lastName.value,
-        photoURL: photoURL.value || null,
         withGoogle: route.params.withGoogle,
       };
       await authService.completeProfile(info);

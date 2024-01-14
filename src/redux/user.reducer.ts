@@ -32,6 +32,13 @@ const userSlice = createSlice({
                 ...action.payload,
             }
         },
+        login: (state, action: PayloadAction<userActionTypes.LoginPayload> ) => {
+            return {
+                ...state,
+                isAuth: true,
+                ...action.payload,
+            }
+        },
         logout: () => {
             return {
                 ...initialState,

@@ -9,6 +9,8 @@ import MessageModal from "../modals/MessageModal";
 import { AntDesign } from '@expo/vector-icons';
 import SelectPhotoModal from "../modals/SelectPhotoModal";
 import { useEffect, useState } from "react";
+import { BottomSheetVariables } from '../../types/modal.type';
+import ProfileMenuModal from "../modals/ProfileMenuModal";
 
 const { width, height } = Dimensions.get('window');
 
@@ -20,7 +22,7 @@ const CustomModal = () => {
 
     console.log("app : ",appState);
 	useEffect(() => {
-		if(appState.activeModal === modalTypes.Variables.SelectPhoto){
+		if(appState.activeModal && modalTypes.BottomSheetVariables.includes(appState.activeModal)){
 			setIsBottomSheet(true);
 		} else {
 			setIsBottomSheet(false);
@@ -37,6 +39,8 @@ const CustomModal = () => {
 				return <MessageModal message={appState.data.message} status={appState.data.status} />;
 			case modalTypes.Variables.SelectPhoto:
 				return <SelectPhotoModal headerText={appState.data.headerText} isRemovableButton={appState.data.isRemovableButton} removeAction={appState.data.removeAction}  />
+			case modalTypes.Variables.ProfileMenu:
+				return <ProfileMenuModal />
 			default:
 				return <></>;
 		}

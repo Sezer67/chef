@@ -39,5 +39,13 @@
     "completeInfoDesc": "Lütfen istenen bilgileri doldurunuz!",
     "description": "Açıklama",
     "contuniue": "Devam Et",
-    "unexpectedError": "Beklenmeyen bir hata oluştu"
+    "unexpectedError": "Beklenmeyen bir hata oluştu",
+    "menu": "Menü",
+    "settings": "Ayarlar",
+    "edit": "Düzenle",
+    "qrCode": "QR Kod",
+    "favorites": "Favoriler",
+    "follows": "Takip",
+    "followers": "Takipçi",
+    "posts": "Gönderi"
 }

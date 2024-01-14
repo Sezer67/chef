@@ -31,7 +31,7 @@ const SelectPhotoModal: FC<modalTypes.SelectPhotoDataType> = ({isRemovableButton
   }
 
   const clearCurrentPhoto = () => {
-    
+    removeAction();
   }
 
   const selectFromCamera = async() => {
@@ -46,9 +46,7 @@ const SelectPhotoModal: FC<modalTypes.SelectPhotoDataType> = ({isRemovableButton
 
       if(!result.canceled) {
         // save image
-        const fileName = result.assets[0].fileName + '-' + new Date().getTime();
-        storage().ref(`images/pp/${fileName}`).putFile(result.assets[0].uri);
-        console.log("result : ",result);
+        await uploadImage(result.assets[0]);
       }
 
     } catch (error) {
@@ -90,8 +88,7 @@ const SelectPhotoModal: FC<modalTypes.SelectPhotoDataType> = ({isRemovableButton
       await task;
       task.then(async (res) => {
         userService.updateProfilePicture(userState.id, res.metadata.fullPath);
-        const url = await storage().ref(res.metadata.fullPath).getDownloadURL();
-        dispatch(userActions.setUser({ photoURL: url }));
+        dispatch(userActions.setUser({ photoURL: res.metadata.fullPath }));
       });
       setUploading(false);
       handleClose();

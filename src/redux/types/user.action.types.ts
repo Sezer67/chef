@@ -1,3 +1,5 @@
+import { reducerTypes } from "../../types";
+
 export type FirstLoginPayload = {
     id: string;
     email: string;
@@ -16,7 +18,9 @@ export type SetUserPayload = {
     firstName?:string;
     lastName?:string;
     phoneNumber?: string;
-    photoURL?: string;
+    photoURL?: string | null;
     withGoogle?: boolean;
     description?: string;
 }
+
+export type LoginPayload = Omit<reducerTypes.UserReducer, "isAuth" >;
