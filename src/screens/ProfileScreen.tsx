@@ -1,5 +1,5 @@
-import { Dimensions, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { FC } from 'react'
+import { Dimensions, NativeScrollEvent, NativeSyntheticEvent, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import React, { FC, useEffect, useRef, useState } from 'react'
 import useAppTheme from '../hooks/useAppTheme';
 import CustomText from '../components/UI/CustomText';
 import ProfilePicture from '../components/Profile/ProfilePicture';
@@ -17,6 +17,9 @@ const ProfileScreen = () => {
     const { themeColors } = useAppTheme();
     const dispatch = useDispatch();
     const userState = useSelector((state: RootReduxType) => state.user);
+
+    const [activeTab, setActiveTab] = useState<number>(0);
+    const tabRef = useRef<ScrollView>(null);
 
     const formatNumber = (number: number): string => {
         if (number >= 1000000) {
@@ -46,6 +49,16 @@ const ProfileScreen = () => {
 
     const handlePressMenu = () => {
         dispatch(appActions.showModal({ activeModal: modalTypes.Variables.ProfileMenu, data: undefined }))
+    }
+
+    const handleTabScroll = (event:NativeSyntheticEvent<NativeScrollEvent>) => {
+        const xOffset = event.nativeEvent.contentOffset.x;
+        setActiveTab(Math.round(xOffset / width));
+    }
+
+    const handleTabPress = (tab: number) => {
+        setActiveTab(tab);
+        tabRef.current?.scrollTo({ x: tab * width, animated: true });
     }
 
   return (
@@ -86,6 +99,43 @@ const ProfileScreen = () => {
                 {renderFollowerArea(1323, language('follows'))}
             </View>
         </View>
+        <View style={{ flex: 1 }}>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                {/* todo: İkon Bulunacak */}
+                <TouchableOpacity onPress={() => handleTabPress(0)} style={[styles.tab, activeTab === 0 ? {...styles.activeTab, borderColor: themeColors.textColor} : {}]}>
+                    <Text style={activeTab === 0 ? { color: themeColors.textColor } : { color: themeColors.gray }}>Postlar</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => handleTabPress(1)} style={[styles.tab, activeTab === 1 ? {...styles.activeTab, borderColor: themeColors.textColor} : {}]}>
+                    <Text style={activeTab === 1 ? { color: themeColors.textColor } : { color: themeColors.gray }}>Tarifler</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => handleTabPress(2)} style={[styles.tab, activeTab === 2 ? {...styles.activeTab, borderColor: themeColors.textColor} : {}]}>
+                    <Text style={activeTab === 2 ? { color: themeColors.textColor } : { color: themeColors.gray }}>Tab 3</Text>
+                </TouchableOpacity>
+            </View>
+            <ScrollView 
+                ref={tabRef}
+                horizontal 
+                pagingEnabled 
+                onScroll={handleTabScroll} 
+                scrollEventThrottle={16} 
+                style={{flex : 1}}
+                showsHorizontalScrollIndicator={false}
+            >
+                <ScrollView style={styles.tabContainer}>
+                    <Text>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
+
+The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
+
+The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.</Text>
+                </ScrollView>
+                <ScrollView style={styles.tabContainer}>
+                    <Text>Tab 2</Text>
+                </ScrollView>
+                <ScrollView style={styles.tabContainer}>
+                    <Text>Tab 3</Text>
+                </ScrollView>
+            </ScrollView>
+        </View>
     </SafeAreaView>
   )
 }
@@ -105,5 +155,18 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-evenly',
+    },
+    tab: {
+        width: width / 3,
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingVertical: 10,
+    },
+    activeTab: {
+        borderBottomWidth: 0.75,
+    },
+    tabContainer: {
+        width: width,
+        marginBottom: 75, // bottom tab
     }
 })

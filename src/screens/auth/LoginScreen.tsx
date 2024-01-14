@@ -77,14 +77,9 @@ const LoginScreen = () => {
                     phoneNumber: result.user.phoneNumber || undefined,
                     firstName: result.additionalUserInfo?.profile?.given_name || undefined,
                     lastName: result.additionalUserInfo?.profile?.family_name || undefined,
+                    emailVerified: true,
                 }));
-                navigation.navigate('AccountComplete',{
-                    photoURL: result.user.photoURL || undefined,
-                    phoneNumber: result.user.phoneNumber || undefined,
-                    firstName: result.additionalUserInfo?.profile?.given_name || undefined,
-                    lastName: result.additionalUserInfo?.profile?.family_name || undefined,
-                    withGoogle: true,
-                })
+                navigation.navigate('AccountComplete')
                 // profilimi tamamla ekranına yönlendir. 
                 // Burdan gidildiğinde firstName,lastName,photo, phoneNumber (default doldur) - username  iste
                 // bilgilerini aldıktan sonra usernames koleksiyonuna ekle
@@ -107,7 +102,10 @@ const LoginScreen = () => {
         try {
             const user = await authService.getCurrentUser();
             dispatch(userActions.login(user));
-            navigation.navigate('App');
+            navigation.reset({
+                index: 0,
+                routes: [{ name: 'App' }]
+            });
         } catch (error) {
             
         }

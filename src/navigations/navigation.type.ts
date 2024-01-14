@@ -1,25 +1,14 @@
 import { NavigatorScreenParams } from "@react-navigation/native";
 import type { NativeStackScreenProps } from '@react-navigation/native-stack'; 
 
-export type AccountCompleteParamsType =  {
-    username?: string;
-    firstName?: string;
-    lastName?: string;
-    photoURL?: string;
-    phoneNumber?: string;
-    withGoogle: boolean;
-}
-
 export type RootStackParamList = {
     Auth: NavigatorScreenParams<AuthStackParamList>;
-    AccountComplete: AccountCompleteParamsType;
+    AccountComplete: undefined;
     App: TabNavigatorParamList | undefined;
 }
 
 export type AuthStackParamList = {
-    Login: {
-        asd?: string;
-    };
+    Login: undefined;
     Register: undefined;
 }
 

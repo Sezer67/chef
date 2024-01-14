@@ -26,6 +26,7 @@ export const registerEmailAndPassword = async (body: RegisterType): Promise<Fire
                     firstName: null,
                     lastName: null,
                     withGoogle: false,
+                    emailVerified: false,
                 });
         createUsernameInfo(body.username, body.email, body.phoneNumber);
         return createdUser;
@@ -58,6 +59,7 @@ export const googleSignIn = async (): Promise<FirebaseAuthTypes.UserCredential> 
                 firstName: res.additionalUserInfo.profile?.given_name || null,
                 lastName: res.additionalUserInfo.profile?.family_name || null,
                 withGoogle: true,
+                emailVerified: true,
             });
         } else {
             // eğer kullanıcının withGoogle değeri false ise true ya çekilsin.

@@ -22,7 +22,15 @@ const RootStack = () => {
     if(userState.isAuth){
       const user = await authService.getCurrentUser();
       dispatch(userActions.login(user));
-      navigation.navigate('App');
+      if(!userState.username || !userState.firstName) {
+        // Hesabını henüz tamamlamamış
+        navigation.navigate('AccountComplete');
+        return;
+      }
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'App' }]
+      });
     }
   }
 

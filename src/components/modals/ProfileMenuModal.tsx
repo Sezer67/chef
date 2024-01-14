@@ -9,6 +9,9 @@ import { appActions } from '../../redux/app.reducer';
 import CustomText from '../UI/CustomText';
 import { Colors } from '../../constans';
 import { language } from '../../languages';
+import { authService } from '../../firebase';
+import { userActions } from '../../redux/user.reducer';
+import { useAppNavigaton } from '../../hooks/useAppNavigation';
 
 const { width, height } = Dimensions.get('window');
 
@@ -16,9 +19,16 @@ const ProfileMenuModal = () => {
 
     const { themeColors } = useAppTheme();
     const dispatch = useDispatch();
+    const navigation = useAppNavigaton();
 
     const handleClose = () => {
         dispatch(appActions.hideModal());
+    }
+    const handleLogout = () => {
+        authService.logout();
+        dispatch(userActions.logout());
+        navigation.navigate("Auth", { screen: 'Login' });
+        handleClose();
     }
 
   return (
@@ -77,6 +87,17 @@ const ProfileMenuModal = () => {
             <View style={styles.itemText}>
                 <CustomText
                     text={language('favorites')}
+                    variant='button'
+                />
+            </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={handleLogout} style={styles.itemRow}>
+            <View style={styles.itemIcon}>
+                <MaterialIcons name="logout" size={24} color={themeColors.textColor} />
+            </View>
+            <View style={styles.itemText}>
+                <CustomText
+                    text={language('logout')}
                     variant='button'
                 />
             </View>

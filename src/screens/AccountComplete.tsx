@@ -17,6 +17,7 @@ import { RootReduxType } from '../types/reducer.type';
 import { userActions } from '../redux/user.reducer';
 import { appActions } from '../redux/app.reducer';
 import { modalTypes } from '../types';
+import { useAppNavigaton } from '../hooks/useAppNavigation';
 
 const { width, height } = Dimensions.get('window');
 
@@ -25,11 +26,12 @@ const AccountComplete = () => {
   const userState = useSelector((state: RootReduxType) => state.user);
   const route = useRoute<RootStackScreenProps<"AccountComplete">['route']>();
   const dispatch = useDispatch();
+  const navigation = useAppNavigaton();
 
-  const username = useAppForm({ type: 'username', defaultValue: route.params.username });
-  const firstName = useAppForm({ defaultValue: route.params.firstName });
-  const lastName = useAppForm({ defaultValue: route.params.lastName });
-  const phoneNumber = useAppForm({ type: 'phone', defaultValue: route.params.phoneNumber });
+  const username = useAppForm({ type: 'username', defaultValue: userState.username });
+  const firstName = useAppForm({ defaultValue: userState.firstName });
+  const lastName = useAppForm({ defaultValue: userState.lastName });
+  const phoneNumber = useAppForm({ type: 'phone', defaultValue: userState.phoneNumber });
   const description = useAppForm({ });
   
 
@@ -43,11 +45,14 @@ const AccountComplete = () => {
         description: description.value,
         firstName: firstName.value,
         lastName: lastName.value,
-        withGoogle: route.params.withGoogle,
+        withGoogle: userState.withGoogle,
       };
       await authService.completeProfile(info);
       dispatch(userActions.firstLogin(info as never));
-      // navigate to home
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'App' }]
+      });
     } catch (error: any) {
       let message = '';
       if(!(language(error).includes('missing') && language(error).includes('translation'))) {
@@ -89,8 +94,8 @@ const AccountComplete = () => {
           onChangeText={username.onChange}
           error={!!username.error}
           placeholder='myusername'
-          editable={!(!!route.params.username)}
-          successIcon={!!route.params.username}
+          editable={!(!!userState.username)}
+          successIcon={!!userState.username}
         />
         <View style={{ width: '100%' ,flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
           <View style={{ width: '45%' }}>
@@ -126,8 +131,8 @@ const AccountComplete = () => {
           onChangeText={phoneNumber.onChange}
           error={!!phoneNumber.error}
           placeholder='555 555 55 55'
-          editable={!(!!route.params.phoneNumber)}
-          successIcon={!!route.params.phoneNumber}
+          editable={!(!!userState.phoneNumber)}
+          successIcon={!!userState.phoneNumber}
         />
         <CustomButton 
           onPress={handleContinuePress}

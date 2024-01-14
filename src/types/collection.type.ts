@@ -14,4 +14,5 @@ export type UserCollection = {
     photoURL: string | null;
     withGoogle: boolean;
     description: string | null;
+    emailVerified: boolean | null;
 }

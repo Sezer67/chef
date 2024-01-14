@@ -13,6 +13,7 @@ const initialState: reducerTypes.UserReducer = {
     photoURL: null,
     withGoogle: false,
     description: null,
+    emailVerified: null,
 }
 
 const userSlice = createSlice({

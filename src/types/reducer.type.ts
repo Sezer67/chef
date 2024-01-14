@@ -15,6 +15,7 @@ export type UserReducer = {
     photoURL: string | null;
     description: string | null;
     withGoogle: boolean;
+    emailVerified: boolean | null;
 }
 export type AppReducer = {
     activeModal: modalTypes.Variables | null;

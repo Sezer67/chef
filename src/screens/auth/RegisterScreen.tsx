@@ -53,8 +53,9 @@ const RegisterScreen = () => {
                 username: username.value,
                 withGoogle: false,
                 phoneNumber: phoneNumber.value,
+                emailVerified: false,
             }))
-            navigation.navigate('AccountComplete', { username: username.value, phoneNumber: phoneNumber.value, withGoogle: false });
+            navigation.navigate('AccountComplete');
         } catch (error: any) {
             if(!(language(error).includes('missing') && language(error).includes('translation'))) {
                 dispatch(appActions.showModal({ activeModal: modalTypes.Variables.Message, data: {
@@ -99,7 +100,7 @@ const RegisterScreen = () => {
                 />
                 <CustomInput 
                     label={language('phoneNumber')}
-                    placeholder='0555 555 55 55'
+                    placeholder='555 555 55 55'
                     error={!!phoneNumber.error}
                     value={phoneNumber.value}
                     onChangeText={phoneNumber.onChange}

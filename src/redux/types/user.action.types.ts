@@ -10,6 +10,7 @@ export type FirstLoginPayload = {
     photoURL?: string;
     withGoogle: boolean;
     description?: string;
+    emailVerified?: boolean;
 }
 
 export type SetUserPayload = {
@@ -21,6 +22,7 @@ export type SetUserPayload = {
     photoURL?: string | null;
     withGoogle?: boolean;
     description?: string;
+    emailVerified?: boolean;
 }
 
 export type LoginPayload = Omit<reducerTypes.UserReducer, "isAuth" >;
