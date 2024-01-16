@@ -1,3 +1,5 @@
+import { Platform } from "react-native";
+import { initialWindowMetrics } from "react-native-safe-area-context";
 import { scale } from "react-native-size-matters";
 
 const Sizes = {
@@ -20,4 +22,6 @@ const Fonts = {
 	'poppins-bold': 'Poppins-Bold',
 }
 
-export { Sizes, Fonts };
+const tabHeight = 70 + (Platform.OS === 'ios' ? initialWindowMetrics?.insets.bottom || 10 : 10) + 10;
+
+export { Sizes, Fonts, tabHeight };

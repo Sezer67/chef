@@ -87,7 +87,7 @@ const TabStack = () => {
     }
 
   return (
-    <Tab.Navigator screenOptions={navigatorScreenOptions} initialRouteName='Home' >
+    <Tab.Navigator backBehavior='none' screenOptions={navigatorScreenOptions} initialRouteName='Home' >
         <Tab.Screen 
             name='Home' 
             component={() => (<SafeAreaView><Text>Home</Text></SafeAreaView>)} 

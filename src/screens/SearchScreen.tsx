@@ -48,7 +48,6 @@ const SearchScreen = () => {
                 value={searchText}
                 onChangeText={(val) => setSearchText(val)}
                 onFocus={handleFocus}
-                onBlur={handleCancelSearch}
             />
         </Animated.View>
         {

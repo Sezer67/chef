@@ -10,6 +10,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { appActions } from '../redux/app.reducer';
 import { modalTypes } from '../types';
 import { language } from '../languages';
+import { tabHeight } from '../constans/layout';
 
 const { width, height } = Dimensions.get('window');
 
@@ -167,6 +168,6 @@ const styles = StyleSheet.create({
     },
     tabContainer: {
         width: width,
-        marginBottom: 75, // bottom tab
+        marginBottom: tabHeight, // bottom tab
     }
 })
